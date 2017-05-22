@@ -6,4 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface Repository extends CrudRepository<ToDo, Long> {
   List<ToDo> findAllByOrderByIdAsc();
+  List<ToDo> findByIsDoneEquals(boolean done);
+
 }

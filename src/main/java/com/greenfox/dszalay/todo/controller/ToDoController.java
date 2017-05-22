@@ -31,8 +31,8 @@ public class ToDoController {
 
   @RequestMapping(value = "/listundone")
   public String listundone(Model model) {
-    model.addAttribute("todos", repository.findAllByOrderByIdAsc());
-    return "todoundone";
+    model.addAttribute("todos", repository.findByIsDoneEquals(false));
+    return "todo";
   }
 
   @RequestMapping(value = "/addtodo")

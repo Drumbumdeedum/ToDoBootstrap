@@ -1,26 +1,63 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <link href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" rel="stylesheet"/>
-  <title>ToDoApp</title>
-</head>
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="/webjars/bootstrap/3.3.7-1/css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" th:href="@{/style.css}"/>
+    <title>ToDoApp</title>
+  </head>
 
-<body>
-<table class="table">
-  <h1>To Dos for today:</h1>
-  <tr>
-    <th>ID</th>
-    <th>To Do</th>
-    <th>It it done yet?</th>
-    <th>Is it urgent?</th>
-  </tr>
-</table>
+  <body>
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header">
+          <form class="navbar-form navbar-left" action="/listall">
+            <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-home" aria-hidden="true" style="margin-right: 5px"/>Home</button>
+          </form>
+          <form class="navbar-form navbar-left" action="/addtodo">
+            <div class="form-group">
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"/>
+              <input type="text" name="newTodo" class="form-control" placeholder="Add new To Do"/>
+            </div>
+            <button type="submit" class="btn btn-primary">Add To Do</button>
+          </form>
+          <form class="navbar-form navbar-left" action="/listall">
+            <button type="submit" class="btn btn-default">Show all</button>
+          </form>
+          <form class="navbar-form navbar-left" action="/listundone">
+            <button type="submit" class="btn btn-default">Show undone</button>
+          </form>
+        </div>
+      </div>
+    </nav>
 
+    <div class="container">
+      <table class="table table-striped">
+        <h1>To Dos for today:</h1>
+        <tr style="background-color: cornflowerblue; color: white;">
+          <th>To Do</th>
+          <th class="column">It it done yet?</th>
+          <th class="column">Is it urgent?</th>
+          <th class="column">Delete</th>
+          <th class="column">Edit</th>
+        </tr>
+        <tr th:each="todo : ${todos}">
+          <th th:text="${todo.getTitle()}"/>
+          <th class="column" th:if="${todo.isDone()}"><span class="glyphicon glyphicon-ok" style="color:green" aria-hidden="true"/></th>
+          <th class="column" th:if="${!todo.isDone()}"><span class="glyphicon glyphicon-remove" style="color:red" aria-hidden="true"/></th>
+          <th class="column" th:if="${todo.isDone()}"><span class="glyphicon glyphicon-minus" style="color:green" aria-hidden="true"/></th>
+          <th class="column" th:if="${!todo.isDone()} and ${todo.isUrgent()}"><span class="glyphicon glyphicon-exclamation-sign" style="color:red" aria-hidden="true"/></th>
+          <th class="column" th:if="${!todo.isDone()} and ${!todo.isUrgent()}"><span class="glyphicon glyphicon-minus" style="color:orange" aria-hidden="true"/></th>
+          <th class="column"><a style="text-decoration: none" th:href="${'/' + todo.getId() + '/delete'}"><span class="glyphicon glyphicon-trash" aria-hidden="true"/></a></th>
+          <th class="column"><a style="text-decoration: none" th:href="${'/' + todo.getId() + '/edit'}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"/></a></th>
+        </tr>
+      </table>
+    </div>
 
-<script src="webjars/jquery/1.11.1/jquery.min.js"></script>
-<script src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
-</body>
+    <script src="webjars/jquery/1.11.1/jquery.min.js"></script>
+    <script src="webjars/bootstrap/3.3.7-1/js/bootstrap.min.js"></script>
+
+  </body>
 </html>
