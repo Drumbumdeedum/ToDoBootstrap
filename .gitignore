@@ -1,0 +1,10 @@
+
+.idea
+out
+*.iml
+*.xml
+.DC_Store
+.gradle
+.properties
+build/
+*.class
