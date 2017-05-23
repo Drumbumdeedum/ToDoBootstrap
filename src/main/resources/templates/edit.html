@@ -27,10 +27,12 @@
         <form action="/save" method="post" th:object="${todo}">
           <div>
             <input type="hidden"  th:field="*{id}"/>
-            <input type="text" name="title" th:value="*{title}" required="required"/>
+            <input type="text" style="width: 100%" name="title" th:value="*{title}" required="required"/>
+          </div>
+          <div>
             <input type="checkbox" name="isDone" th:checked="*{done}"/>Done
             <input type="checkbox" name="isUrgent" th:checked="*{urgent}"/>Urgent
-            <button class="btn btn-primary" type="submit">Submit</button>
+            <button class="btn btn-primary" style="float: right; margin-top: 3px" type="submit">Submit</button>
           </div>
         </form>
        </div>
